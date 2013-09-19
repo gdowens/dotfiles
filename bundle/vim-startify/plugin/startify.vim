@@ -21,4 +21,6 @@ command! -nargs=? -bar -complete=customlist,startify#session_list SLoad   call s
 command! -nargs=? -bar -complete=customlist,startify#session_list SDelete call startify#session_delete(<f-args>)
 command! -nargs=0 -bar Startify call startify#insane_in_the_membrane()
 
+hi StartifyHeader ctermfg=92
+
 " vim: et sw=2 sts=2
