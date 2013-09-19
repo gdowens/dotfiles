@@ -1,0 +1,125 @@
+0.1
+- Initial release
+
+0.2
+- Improved command-line completion for :TPlugin
+- Experimental autoload for commands and functions (à la AsNeeded)
+- The after path is inserted at the second to last position
+- When autoload is enabled and g:tplugin_menu_prefix is not empty, build 
+a menu with available plugins (NOTE: this is disabled by default)
+
+0.3
+- Build helptags during :TPluginScan (i.e. support for helptags requires 
+autoload to be enabled)
+- Call delcommand before autoloading a plugin because of an unknown 
+command
+- TPluginScan: Take a root directory as the second optional argument
+- The autoload file was renamed to ROOT/tplugin.vim
+- When adding a repository to &rtp, ROOT/tplugin_REPO.vim is loaded
+- TPluginBefore, TPluginAfter commands to define inter-repo dependencies
+- Support for autoloading <plug> maps
+- Support for autoloading filetypes
+
+0.4
+- Moved autoload functions to macros/tplugin.vim -- users have to rescan 
+their repos.
+- Fixed concatenation of filetype-related files
+- :TPluginDisable command
+- Replaced :TPluginMap with a function TPluginMap()
+
+0.5
+- Support for ftdetect
+- Per repo metadata (ROOT/REPO/tplugin.vim)
+- FIX: s:ScanRoots(): Remove empty entries from filelist
+- Support for ftplugins in directories and named {&FT}_{NAME}.vim
+- FIX: Filetype-related problems
+- Relaxed the rx for functions
+- FIX: Don't load any plugins when autoloading an "autoload function"
+- :TPlugin accepts "-" as argument, which means load "NO PLUGIN".
+- Speed up :TPluginScan (s:ScanRoots(): run glob() only once, filter file 
+contents before passing it to s:ScanSource())
+- :TPluginScan: don't use full filenames as arguments for 
+TPluginFiletype()
+- g:tplugin_autoload_exclude: Exclude repos from autoloading
+- Removed :TPluginDisable
+- TPluginMap(): Don't map keys if the key already is mapped (via 
+maparg())
+- If g:tplugin_autoload == 2, run |:TPluginScan| after updating tplugin.
+- FIX: Don't add autoload files to the menu.
+- FIX: s:ScanLine: Don't create duplicate autoload commands.
+
+0.6
+- CHANGE: The root specific autoload files are now called '_tplugin.vim'
+- Provide a poor-man implementation of fnameescape() for users of older 
+versions of vim.
+- If the root name ends with '*', the root is no directory tree but a 
+single directory (actually a plugin repo)
+- s:TPluginComplete(): Hide tplugin autoload files.
+
+0.7
+- TPluginScan: try to maintain information about command-line completion 
+(this won't work if a custom script-local completion function is used)
+
+0.8
+- Delete commands only when they were defined without a bang; make sure 
+all commands in a file defined without a bang are deleted
+- g:tplugin_scan defaults to 'cfpt'
+- Don't register each autoload function but deduce the repo/plugin from 
+the prefix.
+- g:tplugin_scan defaults to 'cfpta'
+- TPluginCommand and TPluginFunction are functions. Removed the commands 
+with the same name.
+- #TPluginInclude tag
+
+0.9
+- Renamed #TPluginInclude to @TPluginInclude
+- Added support for @TPluginMap, @TPluginBefore, @TPluginAfter annotations
+- TPluginMap() restores the proper mode
+- Load after/autoload/* files
+
+0.10
+- Make helptags of repositories that weren't yet loaded available to the 
+user.
+- Renamed variables: g:tplugin#autoload_exclude, g:tplugin#scan
+
+version: "0.12"
+  - Run helptags with silent!
+  - vcsdo: Finalize the name of the log buffer as script-local variable
+  - Experimental support for <VIMPLUGIN> tags used in vx* plugins.
+  - .gitignore
+  - Experimental support for parsing *-addon-info.txt and simpler dependency management
+  - s:AutoloadFunction(): Properly support autoload funcs in subdirectories
+  - &rtp wasn't properly updated in certain situations
+  - Experimental: Scan sources for VimEnter autocommands
+  - autoload/tplugin/vcscommand: Adapt to new arguments
+  - FIX: scanning of autocmds: Don't use \k
+  - autoload/tplugin/fugitive: Don't call #fugitive_utility#VimEnter
+  - SetRoot(): Use inputdialog() to display "Rescanning roots: Please be patient" message
+  - TPluginRequire: Remove check for s:done[rootrepo] (over-optimization)
+  - s:TPluginComplete(): show all known repos as completion candidates
+  MD5 checksum: 8ff9f5f7c97d3e306bb543a60cf16271
+
+version: "0.13"
+  - Fix message when rescanning roots due to outdated meta files; rescan only once
+  MD5 checksum: 395629f472fea537b25cfb12ae01f829
+
+version: "0.13"
+  - Fix message when rescanning roots due to outdated meta files; rescan only once
+  MD5 checksum: 395629f472fea537b25cfb12ae01f829
+
+version: "0.14"
+  - TPluginRegisterPlugin works again
+  - TPluginRoot!: With bang, mark this root for shallow scans
+  - Speed up scanning of "shallow roots"
+  MD5 checksum: fba3e4a4fad872e074f76dd3988c2cb3
+
+  - Don't try to run :helptags on directories with no text files
+  - g:tplugin#show_helptags_errors: If true, show errors when running :helptags.
+  - Support for extradite
+  - TPluginVimEnter(): :do VimEnter commands only if such autocommands are defined
+  - Make sure to register repos with no plugin file
+  - Autoload: Ignore E121 errors (local variables) and echo v:exception on errors
+  - g:tplugin#show_helptags_errors: If true, show errors when running helptags
+  MD5 checksum: 7c454f3a1f0a380743d5dcb39cfae912
+version: "1.00"
+
